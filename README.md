@@ -146,7 +146,7 @@ response = model.generate_text(
 print("Model response:", response)
 
 ```
-
+![](assets/2025-04-07-00-13-13.png)
 ---
 
 ## 2. Langchain
@@ -207,7 +207,7 @@ response = watsonx_llm.invoke(prompt)
 print(response)
 
 ```
-
+![](assets/2025-04-07-00-13-49.png)
 ---
 
 ## 3. Langraph
@@ -278,7 +278,7 @@ answer = result["messages"][-1]
 print(answer)
 
 ```
-
+![](assets/2025-04-07-00-12-23.png)
 ---
 
 ## 4. Langflow Integration
