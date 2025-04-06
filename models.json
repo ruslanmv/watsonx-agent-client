@@ -1,0 +1,72 @@
+{
+    "latest_update": {
+      "date": "2025-04-06",
+      "description": "The ibm_watsonx_ai Python SDK has been updated to version 1.0. This release includes significant refactoring and cleanup for improved code readability and performance. Key changes include a new authorization method using the 'Credentials' class, easier project and space setup during APIClient initialization, and the relocation of foundation model functions under the 'client.foundation_models' object. Note that some breaking changes and deprecations have been introduced. Please refer to the V1 Migration Guide for detailed information.",
+      "v1_migration_guide": {
+        "refactor_and_cleanup": "Major refactoring and cleanup of the codebase for improved readability and performance.",
+        "new_authorization": "Introduced the 'Credentials' class to replace the credentials dictionary for authentication.",
+        "easier_project_and_space_setup": "Simplified initialization of APIClient with direct setting of default project or space.",
+        "foundation_model_functions_moved": "Foundation model functions are now accessible under the 'client.foundation_models' object.",
+        "breaking_changes": "The 'client.<resource>.list()' methods now return pandas.DataFrame instead of printing tables. Deprecated methods and parameters from v0 have been removed. 'client.credentials' and 'client.wml_credentials' now return a 'Credentials' object. Parameter changes in 'service.score(...)'.",
+        "deprecations": "Initializing APIClient with a dictionary for credentials is deprecated. Parameters with 'wml' in the name are deprecated. 'uid' has been replaced by 'id'."
+      }
+    },
+    "available_models": {
+      "ibm": {
+        "granite-13b-instruct-v2": "ibm/granite-13b-instruct-v2",
+        "granite-8b-japanese": "ibm/granite-8b-japanese",
+        "granite-20b-multilingual": "ibm/granite-20b-multilingual",
+        "granite-3-2b-instruct": "ibm/granite-3-2b-instruct",
+        "granite-3-8b-instruct": "ibm/granite-3-8b-instruct",
+        "granite-3-2-8b-instruct": "ibm/granite-3-2-8b-instruct",
+        "granite-guardian-3-2b": "ibm/granite-guardian-3-2b",
+        "granite-guardian-3-8b": "ibm/granite-guardian-3-8b",
+        "granite-3b-code-instruct": "ibm/granite-3b-code-instruct",
+        "granite-8b-code-instruct": "ibm/granite-8b-code-instruct",
+        "granite-20b-code-instruct": "ibm/granite-20b-code-instruct",
+        "granite-34b-code-instruct": "ibm/granite-34b-code-instruct",
+        "granite-vision-3-2-2b": "ibm/granite-vision-3-2-2b",
+        "granite-ttm-512-96-r2": "ibm/granite-ttm-512-96-r2",
+        "granite-ttm-1024-96-r2": "ibm/granite-ttm-1024-96-r2",
+        "granite-ttm-1536-96-r2": "ibm/granite-ttm-1536-96-r2"
+      },
+      "google": {
+        "flan-t5-xl-3b": "google/flan-t5-xl",
+        "flan-t5-xxl-11b": "google/flan-t5-xxl",
+        "flan-ul2-20b": "google/flan-ul2"
+      },
+      "meta": {
+        "llama-3-3-70b-instruct": "meta-llama/llama-3-3-70b-instruct",
+        "llama-3-2-1b-instruct": "meta-llama/llama-3-2-1b-instruct",
+        "llama-3-2-3b-instruct": "meta-llama/llama-3-2-3b-instruct",
+        "llama-3-2-11b-vision-instruct": "meta-llama/llama-3-2-11b-vision-instruct",
+        "llama-3-2-90b-vision-instruct": "meta-llama/llama-3-2-90b-vision-instruct",
+        "llama-guard-3-11b-vision": "meta-llama/llama-guard-3-11b-vision",
+        "llama-3-1-8b-instruct": "meta-llama/llama-3-1-8b-instruct",
+        "llama-3-1-70b-instruct": "meta-llama/llama-3-1-70b-instruct",
+        "llama-3-405b-instruct": "meta-llama/llama-3-405b-instruct",
+        "llama-2-13b-chat": "meta-llama/llama-2-13b-chat"
+      },
+      "mistral_ai": {
+        "mistral-large": "mistralai/mistral-large",
+        "mistral-small-24b-instruct-2501": "mistralai/mistral-small-24b-instruct-2501",
+        "mixtral-8x7b-instruct-v01": "mistralai/mixtral-8x7b-instruct-v01",
+        "pixtral-12b": "mistralai/pixtral-12b"
+      },
+      "bigscience": {
+        "mt0-xxl-13b": "bigscience/mt0-xxl"
+      },
+      "deepseek_ai": {
+        "deepseek-r1-distill-llama-8b": "deepseek-r1-distill-llama-8b"
+      },
+      "elyza_inc": {
+        "elyza-japanese-llama-2-7b-instruct": "elyza/elyza-japanese-llama-2-7b-instruct"
+      },
+      "inception": {
+        "jais-13b-chat": "core42/jais-13b-chat"
+      },
+      "sdaia": {
+        "allam-1-13b-instruct": "sdaia/allam-1-13b-instruct"
+      }
+    }
+  }
