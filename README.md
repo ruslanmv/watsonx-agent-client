@@ -150,7 +150,7 @@ print("Model response:", response)
 ---
 
 ## 2. Langchain
-![](assets/Langchain.png)
+
 **File:** `examples/langchain_example.py`
 
 **When to use:**  
