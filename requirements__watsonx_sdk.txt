@@ -1,1 +1,2 @@
 langchain-ibm
+python-dotenv>=0.20.0
