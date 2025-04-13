@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# This script sets up a Python 3.11 environment on Ubuntu 22.04.
-# It installs Python 3.11, sets it as the default python3, and creates a virtual environment.
+# This script sets up the base Python 3.11 environment and installs project-wide dependencies.
+# It also triggers installation scripts for individual framework environments.
 
 echo "🔧 Adding deadsnakes PPA and updating packages..."
 sudo add-apt-repository ppa:deadsnakes/ppa -y
@@ -24,35 +24,39 @@ curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python3.11
 echo "✅ Python version after setup:"
 python3 --version
 python3 -m pip --version
-echo "🔍 Checking if Python 3.11 is set as the default python3..."
 
-# Check if the virtual environment (.venv) already exists in the root directory.
+# Set up the base virtual environment (.venv)
 if [ -d ".venv" ]; then
-    echo ".venv already exists. Loading the virtual environment..."
+    echo ".venv already exists. Activating the base virtual environment..."
 else
-    echo "Creating virtual environment (.venv)..."
+    echo "Creating base virtual environment (.venv)..."
     python3 -m venv .venv
     if [ $? -ne 0 ]; then
-        echo "❌ Error: Failed to create virtual environment. Please ensure Python 3.11 is properly installed."
+        echo "❌ Error: Failed to create .venv. Please ensure Python 3.11 is properly installed."
         exit 1
     fi
 fi
 
-# Activate the virtual environment.
-echo "✅ Activating virtual environment..."
+echo "Activating base virtual environment..."
 source .venv/bin/activate
 
-# Upgrade pip to the latest version.
-echo "⬆️ Upgrading pip..."
+echo "⬆️ Upgrading pip in base environment..."
 pip install --upgrade pip
 
-# Install dependencies from requirements.txt if it exists.
 if [ -f "requirements.txt" ]; then
-    echo "📦 Installing dependencies from requirements.txt..."
+    echo "📦 Installing base dependencies from requirements.txt..."
     pip install -r requirements.txt
 else
-    echo "📄 requirements.txt not found. Skipping dependency installation."
+    echo "📄 requirements.txt not found. Skipping base dependency installation."
 fi
 
-echo "🎉 Environment setup is complete."
-echo "🚀 You can now use Python 3.11 and the virtual environment is activated."
+echo "🎉 Base environment setup is complete."
+
+# Now trigger installation of individual framework environments
+echo "🚀 Setting up individual framework environments..."
+bash install_beeai.sh
+bash install_langflow.sh
+bash install_watsonx_sdk.sh
+bash install_langraph.sh
+
+echo "🎉 All environments have been set up."

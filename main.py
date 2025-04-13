@@ -6,7 +6,7 @@ from jinja2 import DictLoader
 # Create Flask app and use "assets" as the static folder for background image.
 app = Flask(__name__, static_folder="assets")
 
-# Set up a DictLoader so that "base.html" is available to our templates.
+# Base HTML template shared by all pages.
 BASE_TEMPLATE = """
 <!doctype html>
 <html>
@@ -84,10 +84,9 @@ BASE_TEMPLATE = """
 """
 app.jinja_loader = DictLoader({"base.html": BASE_TEMPLATE})
 
-# Directory where example files are stored
+# Directory where example files are stored.
 EXAMPLES_DIR = "examples"
 
-# Utility function to list all _example.py files from the examples folder.
 def get_example_files():
     files = []
     if os.path.isdir(EXAMPLES_DIR):
@@ -96,7 +95,28 @@ def get_example_files():
                 files.append(file)
     return sorted(files)
 
-# Route: Home page shows list of framework examples in a grid.
+def select_venv(filename):
+    """
+    Choose the appropriate Python interpreter based on the example's filename.
+    If the filename contains:
+      - "beeai"         use .venv_beeai
+      - "langflow"      use .venv_langflow
+      - "watsonx_sdk"   use .venv_watsonx_sdk
+      - "langraph"      use .venv_langraph
+    Otherwise, default to the base environment (.venv).
+    """
+    framework_map = {
+        "beeai": ".venv_beeai",
+        "langflow": ".venv_langflow",
+        "watsonx_sdk": ".venv_watsonx_sdk",
+        "langraph": ".venv_langraph",
+    }
+    for key, venv in framework_map.items():
+        if key in filename:
+            return os.path.join(os.getcwd(), venv, "bin", "python")
+    # Default to base environment if no framework-specific keyword is found.
+    return os.path.join(os.getcwd(), ".venv", "bin", "python")
+
 @app.route("/")
 def index():
     files = get_example_files()
@@ -117,18 +137,17 @@ def index():
     """
     return render_template_string(index_template, files=files)
 
-# Route: View the code of a selected example and show a form to run it.
 @app.route("/view/<filename>", methods=["GET", "POST"])
 def view_example(filename):
     filepath = os.path.join(EXAMPLES_DIR, filename)
     if not os.path.exists(filepath):
         return f"File {filename} not found.", 404
 
-    # If POST, run the code and display the output.
     if request.method == "POST":
         try:
+            python_executable = select_venv(filename)
             result = subprocess.run(
-                ["python", filepath],
+                [python_executable, filepath],
                 capture_output=True,
                 text=True,
                 timeout=30
@@ -147,7 +166,6 @@ def view_example(filename):
         """
         return render_template_string(run_template, filename=filename, output=output)
 
-    # Otherwise (GET): read the code from file and display it.
     with open(filepath, "r", encoding="utf-8") as f:
         code = f.read()
 
@@ -165,7 +183,5 @@ def view_example(filename):
     """
     return render_template_string(view_template, filename=filename, code=code)
 
-# Run the Flask app.
 if __name__ == "__main__":
-    # For demo purposes, use debug=True. Remove or adjust in production.
     app.run(debug=True)
