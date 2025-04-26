@@ -83,3 +83,7 @@ output/
 inference_results/
 generated_agents/
 /trash
+/.venv_watsonx_sdk
+/.venv_langraph
+/.venv_langflow
+/.venv_beeai
